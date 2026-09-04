@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug The Zombie Code</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- BACKGROUND -->
+    <div class="grid-background"></div>
+    <div class="scanline"></div>
+    <!-- ================= START SCREEN ================= -->
+
+    <section id="startScreen" class="screen">
+        <div class="top-status">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
+            <span class="status-divider">|</span>
+            SECURE CONNECTION
+        </div>
+        <div class="start-container">
+            <div class="warning-icon">
+                ☠
+            </div>
+
+            <p class="system-code">// SYSTEM BREACH DETECTED</p>
+
+            <h1>
+                DEBUG THE
+                <span>ZOMBIE CODE</span>
+            </h1>
+
+            <p class="tagline">
+                DETECT <span>•</span> REPAIR <span>•</span> CREATE
+            </p>
+
+            <div class="mission-box">
+
+                <div class="mission-line"></div>
+
+                <p>
+                    A mysterious infection has corrupted the coding system.
+                    Only skilled code doctors can restore it.
+                </p>
+
+                <div class="mission-line"></div>
+
+            </div>
+
+            <div class="start-info">
+
+                <div class="info-card">
+                    <span>01</span>
+                    <strong>SCAN</strong>
+                    <small>Find the infection</small>
+                </div>
+
+                <div class="info-card">
+                    <span>02</span>
+                    <strong>REPAIR</strong>
+                    <small>Fix broken code</small>
+                </div>
+
+                <div class="info-card">
+                    <span>03</span>
+                    <strong>CREATE</strong>
+                    <small>Destroy the core</small>
+                </div>
+
+            </div>
+
+            <div class="login-panel">
+
+                <label for="playerName">
+                    ENTER CODER ID
+                </label>
+
+                <input
+                    type="text"
+                    id="playerName"
+                    placeholder="Enter your name"
+                    autocomplete="off"
+                >
+
+                <button id="startBtn" class="main-btn">
+                    <span>INITIALIZE MISSION</span>
+                    <b>→</b>
+                </button>
+
+                <p id="startError" class="error-text"></p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= GAME SCREEN ================= -->
+
+    <section id="gameScreen" class="screen hidden">
+
+        <!-- HUD -->
+
+        <header class="hud">
+
+            <div class="hud-brand">
+                <div class="mini-skull">☠</div>
+
+                <div>
+                    <small>MISSION</small>
+                    <strong>DEAD CODE PROTOCOL</strong>
+                </div>
+            </div>
+
+            <div class="hud-stats">
+
+                <div class="hud-stat">
+                    <small>LEVEL</small>
+                    <strong id="levelLabel">01</strong>
+                </div>
+
+                <div class="hud-stat">
+                    <small>SCORE</small>
+                    <strong id="scoreDisplay">000</strong>
+                </div>
+
+                <div class="hud-stat shield-stat">
+                    <small>SHIELDS</small>
+                    <strong id="shieldDisplay">00</strong>
+                </div>
+
+                <div class="hud-stat timer-stat">
+                    <small>TIME</small>
+                    <strong id="timerDisplay">20:00</strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- GAME CONTAINER -->
+
+        <main class="game-container">
+
+            <!-- LEVEL TITLE -->
+
+            <div class="level-heading">
+
+                <div>
+                    <p class="level-number">
+                        LEVEL <span id="levelLabelLarge">01</span>
+                    </p>
+
+                    <h2 id="levelName">
+                        INFECTION SCAN
+                    </h2>
+                </div>
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    SYSTEM STABLE
+                </div>
+
+            </div>
+
+
+            <!-- MISSION BANNER -->
+
+            <div class="mission-banner">
+
+                <div class="mission-icon">
+                    ⚡
+                </div>
+
+                <div>
+                    <strong id="missionTitle">
+                        TRACE THE INFECTION
+                    </strong>
+
+                    <p id="missionText">
+                        Analyze the code carefully. One wrong assumption could
+                        allow the virus to spread.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- ================= LEVEL 1 ================= -->
+
+            <div id="level1Panel" class="level-panel">
+
+                <div class="progress-header">
+
+                    <span id="progressText">
+                        QUESTION 01 / 10
+                    </span>
+
+                    <span id="difficultyText">
+                        DIFFICULTY: EASY
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+
+
+                <div class="question-card">
+
+                    <div class="question-top">
+
+                        <span class="question-tag">
+                            CODE TRACE
+                        </span>
+
+                        <span id="questionNumber">
+                            01
+                        </span>
+
+                    </div>
+
+                    <h3 id="questionTitle">
+                        ZOMBIE TRACE
+                    </h3>
+
+                    <p id="questionText"></p>
+
+                    <pre id="codeBlock" class="code-block"></pre>
+
+                    <div id="optionsContainer" class="options-container"></div>
+
+                    <div id="feedback" class="feedback hidden"></div>
+
+                    <button id="nextBtn" class="action-btn hidden">
+                        NEXT INFECTED NODE →
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= LEVEL 2 ================= -->
+
+            <div id="level2Panel" class="level-panel hidden">
+
+                <div class="lab-layout">
+
+                    <div class="editor-section">
+
+                        <div class="editor-header">
+
+                            <div class="editor-title">
+                                <span class="terminal-dot red"></span>
+                                <span class="terminal-dot yellow"></span>
+                                <span class="terminal-dot green"></span>
+
+                                <strong>ZombieStudent.java</strong>
+                            </div>
+
+                            <span class="java-label">
+                                JAVA
+                            </span>
+
+                        </div>
+
+                        <textarea
+                            id="javaEditor"
+                            spellcheck="false"
+                        ></textarea>
+
+                        <div class="editor-footer">
+
+                            <button id="runCodeBtn" class="action-btn">
+                                ▶ RUN DIAGNOSTIC
+                            </button>
+
+                            <button id="hintBtn" class="secondary-btn">
+                                ◈ USE SHIELD
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bug-panel">
+
+                        <div class="panel-heading">
+                            <span>◉</span>
+                            INFECTION MONITOR
+                        </div>
+
+                        <div class="bug-item" id="bug1">
+                            <span class="bug-number">01</span>
+
+                            <div>
+                                <strong>Bonus Mutation</strong>
+                                <small>Incorrect bonus value</small>
+                            </div>
+
+                            <span class="bug-status">?</span>
+                        </div>
+
+                        <div class="bug-item" id="bug2">
+                            <span class="bug-number">02</span>
+
+                            <div>
+                                <strong>Mark Corruption</strong>
+                                <small>Incorrect calculation</small>
+                            </div>
+
+                            <span class="bug-status">?</span>
+                        </div>
+
+                        <div class="bug-item" id="bug3">
+                            <span class="bug-number">03</span>
+
+                            <div>
+                                <strong>Attendance Virus</strong>
+                                <small>Wrong condition</small>
+                            </div>
+
+                            <span class="bug-status">?</span>
+                        </div>
+
+                        <div class="bug-item" id="bug4">
+                            <span class="bug-number">04</span>
+
+                            <div>
+                                <strong>Grade Infection</strong>
+                                <small>Threshold corrupted</small>
+                            </div>
+
+                            <span class="bug-status">?</span>
+                        </div>
+
+
+                        <div class="shield-box">
+
+                            <span>SHIELDS AVAILABLE</span>
+
+                            <strong id="level2ShieldDisplay">
+                                00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div id="level2Feedback" class="feedback hidden"></div>
+
+                <button id="finishBtn" class="action-btn hidden">
+                    ENTER QUALIFICATION CHECK →
+                </button>
+
+            </div>
+
+
+            <!-- ================= WAITING / QUALIFIER ================= -->
+
+            <div id="waitingPanel" class="level-panel hidden">
+
+                <div class="waiting-screen">
+
+                    <div class="core-ring">
+                        <div class="core-ring-inner">
+                            <span>03</span>
+                        </div>
+                    </div>
+
+                    <p class="system-code">
+                        // LEVEL 2 COMPLETE
+                    </p>
+
+                    <h2>
+                        QUALIFICATION
+                        <span>VERIFIED</span>
+                    </h2>
+
+                    <p class="waiting-description">
+                        Your access to the final coding core has been
+                        authorized.
+                    </p>
+
+                    <div class="qualification-card">
+
+                        <div>
+                            <small>CODER</small>
+                            <strong id="qualifiedName">---</strong>
+                        </div>
+
+                        <div>
+                            <small>CURRENT SCORE</small>
+                            <strong id="qualifiedScore">000</strong>
+                        </div>
+
+                        <div>
+                            <small>STATUS</small>
+                            <strong class="green-text">
+                                QUALIFIED
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="lock-status">
+
+                        <div class="lock-icon">
+                            🔒
+                        </div>
+                        <div>
+                            <strong>
+                                ZOMBIE CORE LOCKED
+                            </strong>
+
+                            <p>
+                                Final round will open after the
+                                qualification waiting period.
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="waiting-timer-box">
+
+                        <span>
+                            LEVEL 3 OPENS IN
+                        </span>
+
+                        <strong id="waitingTimer">
+                            10:00
+                        </strong>
+
+                        <div class="waiting-progress">
+                            <div id="waitingProgress"></div>
+                        </div>
+
+                    </div>
+
+                    <p class="waiting-note">
+                        Stay on this page. The final core will unlock
+                        automatically.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= LEVEL 3 ================= -->
+
+            <div id="level3Panel" class="level-panel hidden">
+
+                <div class="core-header">
+
+                    <div>
+                        <span class="question-tag">
+                            FINAL ROUND
+                        </span>
+
+                        <h3>
+                            ZOMBIE CORE
+                        </h3>
+
+                        <p>
+                            Write your own solution. There is no broken
+                            code to repair now.
+                        </p>
+                    </div>
+
+                    <div class="core-warning">
+                        ⚠ HIGH DIFFICULTY
+                    </div>
+
+                </div>
+
+
+                <div class="array-progress">
+
+                    <span id="arrayProgressText">
+                        CORE 01 / 03
+                    </span>
+
+                    <div class="progress-bar">
+                        <div id="arrayProgressFill"></div>
+                    </div>
+
+                </div>
+
+                <div class="array-challenge-card">
+
+                    <div class="challenge-top">
+
+                        <span class="question-tag">
+                            ARRAY PROTOCOL
+                        </span>
+
+                        <span id="arrayPoints">
+                            +50 CORE
+                        </span>
+
+                    </div>
+
+                    <h3 id="arrayChallenge">
+                        MISSING CORE
+                    </h3>
+
+                    <p id="arrayDescription"></p>
+
+                    <div class="test-case">
+
+                        <div>
+                            <small>INPUT</small>
+                            <code id="arrayInput"></code>
+                        </div>
+                        <div>
+                            <small>EXPECTED OUTPUT</small>
+                            <code id="arrayOutput"></code>
+                        </div>
+                    </div>
+                    <div class="solution-header">
+
+                        <span>
+                            WRITE YOUR JAVA SOLUTION
+                        </span>
+
+                        <span class="java-label">
+                            JAVA
+                        </span>
+
+                    </div>
+
+                    <textarea
+                        id="arrayAnswer"
+                        spellcheck="false"
+                        placeholder="// Write your solution here..."
+                    ></textarea>
+
+                    <div class="solution-actions">
+
+                        <button id="runArrayBtn" class="action-btn">
+                            ▶ SUBMIT SOLUTION
+                        </button>
+
+                        <button id="nextArrayBtn" class="action-btn hidden">
+                            NEXT CORE →
+                        </button>
+
+                    </div>
+
+                    <div id="arrayFeedback" class="feedback hidden"></div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </section>
+    <!-- ================= TRANSITION ================= -->
+
+    <section id="transitionScreen" class="screen hidden">
+
+        <div class="transition-container">
+
+            <div class="transition-symbol">
+                ✓
+            </div>
+
+            <p class="system-code">
+                // SYSTEM RESPONSE
+            </p>
+
+            <h2 id="transitionTitle">
+                CONTAINMENT SUCCESSFUL
+            </h2>
+
+            <p id="transitionText">
+                Preparing next protocol...
+            </p>
+
+            <div class="transition-progress">
+                <div id="transitionFill"></div>
+            </div>
+
+            <span>
+                SYSTEM RECONFIGURING...
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= RESULT ================= -->
+
+    <section id="resultScreen" class="screen hidden">
+
+        <div class="result-container">
+
+            <div class="result-icon">
+                ◉
+            </div>
+
+            <p class="system-code">
+                // MISSION COMPLETE
+            </p>
+            <h1>
+                SYSTEM
+                <span>SECURED</span>
+            </h1>
+            <p class="result-name">
+                CODER: <strong id="resultName">---</strong>
+            </p>
+            <div class="result-stats">
+
+                <div>
+                    <small>FINAL SCORE</small>
+                    <strong id="resultScore">000</strong>
+                </div>
+
+                <div>
+                    <small>SHIELDS</small>
+                    <strong id="resultShields">00</strong>
+                </div>
+
+                <div>
+                    <small>CORES CLEARED</small>
+                    <strong id="resultCores">0 / 3</strong>
+                </div>
+
+            </div>
+
+
+            <div class="result-message">
+                <p id="resultMessage">
+                    Mission complete.
+                </p>
+            </div>
+
+            <button id="restartBtn" class="main-btn">
+                RESTART MISSION →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SHIELD MODAL ================= -->
+
+    <div id="shieldModal" class="modal hidden">
+
+        <div class="modal-card">
+
+            <div class="modal-icon">
+                ◈
+            </div>
+
+            <h2>
+                SHIELD SYSTEM
+            </h2>
+
+            <p>
+                Use one shield to reveal a hint?
+            </p>
+            <div class="modal-buttons">
+                <button id="continueBtn" class="action-btn">
+                    USE SHIELD
+                </button>
+
+                <button
+                    id="cancelShieldBtn"
+                    class="secondary-btn"
+                >
+                    CANCEL
+                </button>
+
+            </div>
+        </div>
+    </div>
+</body>
+\
+</html>
